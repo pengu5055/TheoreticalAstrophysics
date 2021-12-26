@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 import cmasher as cmr
 from src_methods import *
+import matplotlib.colors as color
 
 
 def lane_emden(theta, xi):
@@ -31,16 +32,36 @@ xi_range = np.linspace(0.1, 10, 100)
 # plt.show()
 
 # Plot different solutions
-n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
+# n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
+# theta_init = [1, 0]
+# xi_range = np.linspace(0.01, 10, 1000)
+# colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")
+#
+#
+# for index, i in enumerate(n_list):
+#     n = i
+#     sol = np.column_stack(odeint(lane_emden, theta_init, xi_range))
+#     plt.plot(xi_range, sol[0], label="n = {}".format(i), c=colors[index])
+#
+# plt.title("Rešitve Lane-Emdenove enačbe")
+# plt.xlabel(r"$\xi$")
+# plt.ylabel(r"$\theta$")
+# plt.legend()
+# plt.axhline(alpha=1, ls=":", c="#adadad")
+# plt.ylim(-0.4, 1.1)
+# plt.show()
+
+# Continouous version
+div = 200
+n_list = np.linspace(0, 5, div)
 theta_init = [1, 0]
 xi_range = np.linspace(0.01, 10, 1000)
-colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")
-
+winter = plt.cm.get_cmap("winter", div)
 
 for index, i in enumerate(n_list):
     n = i
     sol = np.column_stack(odeint(lane_emden, theta_init, xi_range))
-    plt.plot(xi_range, sol[0], label="n = {}".format(i), c=colors[index])
+    plt.plot(xi_range, sol[0], c=winter(index))
 
 plt.title("Rešitve Lane-Emdenove enačbe")
 plt.xlabel(r"$\xi$")
@@ -48,5 +69,7 @@ plt.ylabel(r"$\theta$")
 plt.legend()
 plt.axhline(alpha=1, ls=":", c="#adadad")
 plt.ylim(-0.4, 1.1)
+plt.colorbar(plt.cm.ScalarMappable(cmap=winter, norm=color.Normalize(vmin=0, vmax=5)),
+             label="Politropni indeks")
 plt.show()
 
