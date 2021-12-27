@@ -32,29 +32,30 @@ def lane_emden(theta, xi):
 # plt.show()
 
 # Plot different solutions
-n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
-theta_init = [1, 0]
-xi_range = np.linspace(0.01, 100, 100000)
-colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")  # For nicer colors
-
-
-for index, i in enumerate(n_list):
-    n = i
-    sol = np.column_stack(odeint(lane_emden, theta_init, xi_range))
-    plt.plot(xi_range, sol[0], label="n = {}".format(i), c=colors[index])
-
-plt.title("Rešitve Lane-Emdenove enačbe")
-plt.xlabel(r"$\xi$")
-plt.ylabel(r"$\theta$")
-plt.legend()
-plt.axhline(alpha=1, ls=":", c="#adadad")
-plt.ylim(-0.4, 1.1)
-plt.show()
+# n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
+# theta_init = [1, 0]
+# xi_range = np.linspace(0.01, 100, 50000)
+# colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")  # For nicer colors
+#
+#
+# for index, i in enumerate(n_list):
+#     n = i
+#     sol = np.column_stack(odeint(lane_emden, theta_init, xi_range))
+#     plt.plot(xi_range, sol[0], label="n = {}".format(i), c=colors[index])
+#
+# plt.title("Rešitve Lane-Emdenove enačbe")
+# plt.xlabel(r"$\xi$")
+# plt.ylabel(r"$\theta$")
+# plt.legend()
+# plt.axhline(alpha=1, ls=":", c="#adadad")
+# plt.ylim(-0.4, 1.1)
+# plt.show()
 
 # Plot derivatives
-n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
+# n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
+n_list = [5]
 theta_init = [1, 0]
-xi_range = np.linspace(0.01, 100, 100000)
+xi_range = np.linspace(0.01, 100, 1000000)
 colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")
 
 
