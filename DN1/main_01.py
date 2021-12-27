@@ -20,10 +20,10 @@ def lane_emden(theta, xi):
     return theta[1], -(theta[0]**n + 2/xi*theta[1])
 
 
-# Test
-n = 1.5
-theta_init = [1, 0]
-xi_range = np.linspace(0.1, 10, 100)
+# Test plot
+# n = 1.5
+# theta_init = [1, 0]
+# xi_range = np.linspace(0.1, 10, 100)
 
 # sol = np.column_stack(odeint(lane_emden, theta_init, xi_range))
 # sol = vec_midpoint(lane_emden, theta_init, xi_range)
@@ -35,7 +35,7 @@ xi_range = np.linspace(0.1, 10, 100)
 n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
 theta_init = [1, 0]
 xi_range = np.linspace(0.01, 100, 100000)
-colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")
+colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")  # For nicer colors
 
 
 for index, i in enumerate(n_list):
@@ -70,6 +70,7 @@ plt.legend()
 plt.axhline(alpha=1, ls=":", c="#adadad")
 plt.ylim(-0.4, 1.1)
 plt.show()
+
 # Continuous version
 # div = 200
 # n_list = np.linspace(0, 5, div)
