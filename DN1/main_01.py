@@ -51,7 +51,6 @@ def temperature_norm(theta, n):
 
 
 def mass_norm(theta, xi, n, xi1):
-    dim1 = len(theta)  # Determin size pre zero_filter
     theta = zero_filter(theta)
     dim = len(theta)
     output = []
