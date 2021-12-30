@@ -153,6 +153,17 @@ xi_range2 = np.linspace(0.01, xi1_2, dims)
 theta2, dtheta2 = np.column_stack(odeint(lane_emden, theta_init, xi_range2))
 r2 = xi_to_r(xi_range2, xi1_2)
 
+# Standard solar model data inport
+data = np.column_stack(np.genfromtxt("bs05_agsop.txt", skip_header=1, skip_footer=4, usecols=(0, 1, 2, 3, 4)))
+m_solar = data[0]
+r_solar = data[1]
+T_solar = data[2]
+rho_solar = data[3]
+p_solar = data[4]
+T_solar = T_solar/T_solar[0]  # Normalize to T_c
+rho_solar = rho_solar/rho_solar[0]  # Normalize to \rho_c
+p_solar = p_solar/p_solar[0]  # Normalize to p_c
+c3 = "#DF367C"
 
 # Density plot
 rho = density_norm(theta, 1.5)
@@ -160,6 +171,7 @@ rho2 = density_norm(theta2, 3)
 
 plt.plot(r, rho, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, rho2, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
 
 plt.title("Gostota")
 plt.xlabel(r"$r/R$")
@@ -173,6 +185,8 @@ x2, m2 = mass_norm(theta2, xi_range2, 3, xi1_2)
 
 plt.plot(xi_to_r(x, xi1), m, c=c1, label=r"$n = 1.5$")
 plt.plot(xi_to_r(x2, xi1_2), m2, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
+
 
 plt.title("Masa")
 plt.xlabel(r"$r/R$")
@@ -186,6 +200,8 @@ p2 = pressure_norm(theta2, 3)
 
 plt.plot(r, p, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, p2, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
+
 
 plt.title("Tlak")
 plt.xlabel(r"$r/R$")
@@ -199,6 +215,8 @@ T2 = temperature_norm(theta2, 3)
 
 plt.plot(r, T, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, T2, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
+
 
 plt.title("Temperatura")
 plt.xlabel(r"$r/R$")
