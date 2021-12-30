@@ -137,7 +137,7 @@ def mass_norm(theta, xi, n, xi1):
 # plt.show()
 
 # Density, Mass, Temperature, Pressure plots n = 1.5 (monoatomic gas)
-dims = 50
+dims = 5000
 c1, c2 = cmr.take_cmap_colors("cmr.cosmic", 2, cmap_range=(0.5, 1), return_fmt="hex")
 
 n = 1.5
