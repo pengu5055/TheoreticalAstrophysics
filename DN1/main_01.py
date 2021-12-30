@@ -52,10 +52,9 @@ def lane_emden(theta, xi):
 # plt.show()
 
 # Plot derivatives
-# n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
-n_list = [5]
+n_list = [0, 0.1, 0.5, 1, 1.5, 3, 5]
 theta_init = [1, 0]
-xi_range = np.linspace(0.01, 100, 1000000)
+xi_range = np.linspace(0.01, 10, 1000000)
 colors = cmr.take_cmap_colors("cmr.cosmic", 7, cmap_range=(0.15, 1), return_fmt="hex")
 
 
@@ -69,7 +68,7 @@ plt.xlabel(r"$\xi$")
 plt.ylabel(r"$\theta$")
 plt.legend()
 plt.axhline(alpha=1, ls=":", c="#adadad")
-plt.ylim(-0.4, 1.1)
+plt.ylim(-0.8, 0.2)
 plt.show()
 
 # Continuous version
