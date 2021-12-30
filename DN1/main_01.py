@@ -20,6 +20,11 @@ def lane_emden(theta, xi):
     return theta[1], -(theta[0]**n + 2/xi*theta[1])
 
 
+def zero_filter(array):
+    """Input array must be ndarray"""
+    return array[array > 0]
+
+
 def xi_to_r(xi, xi1):
     """Convert from dimensionless xi to dimensionless r/R"""
     return xi/xi1
@@ -45,15 +50,19 @@ def temperature_norm(theta, n):
     return k_b*theta
 
 
-def mass_norm(theta, n, xi1):
-    M = quad(lambda xi, theta: xi**2 * theta**n, 0, xi1, args=(theta,))  # Whole mass without constants
-    G = 6.67408 * 10**-11
+def mass_norm(theta, xi, n, xi1):
+    dim1 = len(theta)  # Determin size pre zero_filter
+    theta = zero_filter(theta)
+    dim = len(theta)
     output = []
-    for t in theta:
-        func = lambda t, n: 4 * np.pi * G * density_norm(t, n)
-        output.append(quad(func, 0, r, args=(n,)))
+    M = np.sum([xi_to_r(xi[j], xi1)**2 * theta[j]**n for j in range(dim)])  # Whole mass without constants
 
-    return np.array(output)
+    for i in range(dim):
+        m = np.sum([xi_to_r(xi[j], xi1)**2 * theta[j]**n for j in range(i)])
+        output.append(m/M)
+        print("Step: {}".format(i))
+
+    return xi[:dim], np.array(output)
 
 
 # Test plot
@@ -133,7 +142,7 @@ def mass_norm(theta, n, xi1):
 n = 1.5
 xi1 = 3.64
 theta_init = [1, 0]
-xi_range = np.linspace(0.01, xi1, 50000)
+xi_range = np.linspace(0.01, xi1, 2000)
 theta, dtheta = np.column_stack(odeint(lane_emden, theta_init, xi_range))
 r = xi_to_r(xi_range, xi1)
 
@@ -146,4 +155,11 @@ plt.plot(r, rho)
 plt.show()
 
 # Mass plot
+x, m = mass_norm(theta, xi_range, n, xi1)
+plt.plot(x, m)
+
+plt.title("Masa")
+plt.show()
+
+# Temperature plot
 
