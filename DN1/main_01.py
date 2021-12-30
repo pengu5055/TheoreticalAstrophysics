@@ -41,13 +41,12 @@ def density_norm(theta, n):
 
 def pressure_norm(theta, n):
     """Returns P= K\rho_c^{1 + 1/n}\theta^{n+1} but with constants set to 1"""
-    return theta**(n+1)
+    return theta**(n+1)/theta[0]**(n+1)
 
 
 def temperature_norm(theta, n):
-    r"""Returns T = K\mu/k_B \rho_C^{1/n} \theta with scale constant K an mean molecular weight set to 1"""
-    k_b = 1.38 * 10**-23
-    return k_b*theta
+    r"""Returns T/T_c"""
+    return theta/theta[0]
 
 
 def mass_norm(theta, xi, n, xi1):
@@ -138,27 +137,71 @@ def mass_norm(theta, xi, n, xi1):
 # plt.show()
 
 # Density, Mass, Temperature, Pressure plots n = 1.5 (monoatomic gas)
+dims = 50
+c1, c2 = cmr.take_cmap_colors("cmr.cosmic", 2, cmap_range=(0.5, 1), return_fmt="hex")
+
 n = 1.5
 xi1 = 3.64
 theta_init = [1, 0]
-xi_range = np.linspace(0.01, xi1, 2000)
+xi_range = np.linspace(0.01, xi1, dims)
 theta, dtheta = np.column_stack(odeint(lane_emden, theta_init, xi_range))
 r = xi_to_r(xi_range, xi1)
+# Density, Mass, Temperature, Pressure plots n = 3 (relativistic degenerate gas)
+n = 3
+xi1_2 = 6.89
+xi_range2 = np.linspace(0.01, xi1_2, dims)
+theta2, dtheta2 = np.column_stack(odeint(lane_emden, theta_init, xi_range2))
+r2 = xi_to_r(xi_range2, xi1_2)
 
-plt.plot(r, theta)
-plt.show()
 
 # Density plot
-rho = density_norm(theta, n)
-plt.plot(r, rho)
+rho = density_norm(theta, 1.5)
+rho2 = density_norm(theta2, 3)
+
+plt.plot(r, rho, c=c1, label=r"$n = 1.5$")
+plt.plot(r2, rho2, c=c2, label=r"$n = 3$")
+
+plt.title("Gostota")
+plt.xlabel(r"$\frac{\rho}{\rho_c}$")
+plt.ylabel(r"$\frac{r}{R}$")
+plt.legend()
 plt.show()
 
 # Mass plot
-x, m = mass_norm(theta, xi_range, n, xi1)
-plt.plot(x, m)
+x, m = mass_norm(theta, xi_range, 1.5, xi1)
+x2, m2 = mass_norm(theta2, xi_range2, 3, xi1_2)
+
+plt.plot(xi_to_r(x, xi1), m, c=c1, label=r"$n = 1.5$")
+plt.plot(xi_to_r(x2, xi1_2), m2, c=c2, label=r"$n = 3$")
 
 plt.title("Masa")
+plt.xlabel(r"$\frac{m}{M}$")
+plt.ylabel(r"$\frac{r}{R}$")
+plt.legend()
+plt.show()
+
+# Pressure plot
+p = pressure_norm(theta, 1.5)
+p2 = pressure_norm(theta2, 3)
+
+plt.plot(r, p, c=c1, label=r"$n = 1.5$")
+plt.plot(r2, p2, c=c2, label=r"$n = 3$")
+
+plt.title("Tlak")
+plt.xlabel(r"$\frac{p}{p_c}$")
+plt.ylabel(r"$\frac{r}{R}$")
+plt.legend()
 plt.show()
 
 # Temperature plot
+T = temperature_norm(theta, 1.5)
+T2 = temperature_norm(theta2, 3)
 
+plt.plot(r, T, c=c1, label=r"$n = 1.5$")
+plt.plot(r2, T2, c=c2, label=r"$n = 3$")
+
+plt.title("Temperatura")
+plt.xlabel(r"$\frac{T}{T_c}$")
+plt.ylabel(r"$\frac{r}{R}$")
+plt.legend()
+plt.show()
