@@ -30,10 +30,6 @@ def xi_to_r(xi, xi1):
     return xi/xi1
 
 
-def rho_c(xi1, dtheta):
-    M = -4
-
-
 def density_norm(theta, n):
     """Returns density normalised to central density \rho/\rho_c"""
     return theta**n
@@ -160,66 +156,125 @@ r_solar = data[1]
 T_solar = data[2]
 rho_solar = data[3]
 p_solar = data[4]
-T_solar = T_solar/T_solar[0]  # Normalize to T_c
-rho_solar = rho_solar/rho_solar[0]  # Normalize to \rho_c
-p_solar = p_solar/p_solar[0]  # Normalize to p_c
+# T_solar = T_solar/T_solar[0]  # Normalize to T_c
+# rho_solar = rho_solar/rho_solar[0]  # Normalize to \rho_c
+# p_solar = p_solar/p_solar[0]  # Normalize to p_c
 c3 = "#DF367C"
 
 # Density plot
-rho = density_norm(theta, 1.5)
+# rho = density_norm(theta, 1.5)
+# rho2 = density_norm(theta2, 3)
+#
+# plt.plot(r, rho, c=c1, label=r"$n = 1.5$")
+# plt.plot(r2, rho2, c=c2, label=r"$n = 3$")
+# # plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
+#
+# plt.title("Gostota")
+# plt.xlabel(r"$r/R$")
+# plt.ylabel(r"$\rho/\rho_c$")
+# plt.legend()
+# plt.show()
+
+# Mass plot
+# x, m = mass_norm(theta, xi_range, 1.5, xi1)
+# x2, m2 = mass_norm(theta2, xi_range2, 3, xi1_2)
+#
+# plt.plot(xi_to_r(x, xi1), m, c=c1, label=r"$n = 1.5$")
+# plt.plot(xi_to_r(x2, xi1_2), m2, c=c2, label=r"$n = 3$")
+# # plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
+#
+#
+# plt.title("Masa")
+# plt.xlabel(r"$r/R$")
+# plt.ylabel(r"$m/M$")
+# plt.legend()
+# plt.show()
+
+# Pressure plot
+# p = pressure_norm(theta, 1.5)
+# p2 = pressure_norm(theta2, 3)
+#
+# plt.plot(r, p, c=c1, label=r"$n = 1.5$")
+# plt.plot(r2, p2, c=c2, label=r"$n = 3$")
+# # plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
+#
+#
+# plt.title("Tlak")
+# plt.xlabel(r"$r/R$")
+# plt.ylabel(r"$p/p_c$")
+# plt.legend()
+# plt.show()
+
+# Temperature plot
+# T = temperature_norm(theta, 1.5)
+# T2 = temperature_norm(theta2, 3)
+#
+# plt.plot(r, T, c=c1, label=r"$n = 1.5$")
+# plt.plot(r2, T2, c=c2, label=r"$n = 3$")
+# # plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
+#
+#
+# plt.title("Temperatura")
+# plt.xlabel(r"$r/R$")
+# plt.ylabel(r"$T/T_c$")
+# plt.legend()
+# plt.show()
+
+
+# Physical units plots
+R_sun = 6.9598E+10
+M_sun = 1.98E+30
+T_c = T_solar[0]
+rho_c = rho_solar[0]
+p_c = p_solar[0]
+
+# Density plot
 rho2 = density_norm(theta2, 3)
 
-plt.plot(r, rho, c=c1, label=r"$n = 1.5$")
-plt.plot(r2, rho2, c=c2, label=r"$n = 3$")
-# plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
+plt.plot(r2, rho2 * rho_c, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
 
-plt.title("Gostota")
-plt.xlabel(r"$r/R$")
-plt.ylabel(r"$\rho/\rho_c$")
+plt.title("Gostota v fizikalnih enotah")
+plt.xlabel(r"$R_\odot$")
+plt.ylabel(r"$\rho$ [$g/cm^3$]")
 plt.legend()
 plt.show()
 
 # Mass plot
-x, m = mass_norm(theta, xi_range, 1.5, xi1)
 x2, m2 = mass_norm(theta2, xi_range2, 3, xi1_2)
 
-plt.plot(xi_to_r(x, xi1), m, c=c1, label=r"$n = 1.5$")
 plt.plot(xi_to_r(x2, xi1_2), m2, c=c2, label=r"$n = 3$")
-# plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
+plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
 
 
-plt.title("Masa")
-plt.xlabel(r"$r/R$")
-plt.ylabel(r"$m/M$")
+plt.title("Masa v fizikalnih enotah")
+plt.xlabel(r"$R_\odot$")
+plt.ylabel(r"$M_\odot$")
 plt.legend()
 plt.show()
 
 # Pressure plot
-p = pressure_norm(theta, 1.5)
 p2 = pressure_norm(theta2, 3)
 
-plt.plot(r, p, c=c1, label=r"$n = 1.5$")
-plt.plot(r2, p2, c=c2, label=r"$n = 3$")
-# plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
+plt.plot(r2, p2 * p_c, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
 
 
-plt.title("Tlak")
-plt.xlabel(r"$r/R$")
-plt.ylabel(r"$p/p_c$")
+plt.title("Tlak v fizikalnih enotah")
+plt.xlabel(r"$R_\odot$")
+plt.ylabel(r"$p$ [$dyn/cm^2$]")
 plt.legend()
 plt.show()
 
 # Temperature plot
-T = temperature_norm(theta, 1.5)
 T2 = temperature_norm(theta2, 3)
 
-plt.plot(r, T, c=c1, label=r"$n = 1.5$")
-plt.plot(r2, T2, c=c2, label=r"$n = 3$")
-# plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
+plt.plot(r2, T2 * T_c, c=c2, label=r"$n = 3$")
+plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
 
 
-plt.title("Temperatura")
-plt.xlabel(r"$r/R$")
-plt.ylabel(r"$T/T_c$")
+plt.title("Temperatura v fizikalnih enotah")
+plt.xlabel(r"$R_\odot$")
+plt.ylabel(r"$T$ [K]")
 plt.legend()
 plt.show()
