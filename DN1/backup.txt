@@ -1,0 +1,224 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[slovene]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[nottoc]{tocbibind}
+\usepackage{minted}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{ dsfont }
+\usepackage{siunitx}
+\usepackage{multimedia}
+\usepackage[table,xcdraw]{xcolor}
+\setlength\parindent{0pt}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\newcommand{\ddd}{\mathrm{d}}
+\newcommand\myworries[1]{\textcolor{red}{#1}}
+\newcommand{\Dd}[3][{}]{\frac{\ddd^{#1} #2}{\ddd #3^{#1}}}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[]{logo.png}
+        \vspace*{3cm}
+        
+        \Huge
+        \textbf{Politropni modeli in Lane-Emdenova enačba}
+        
+        \vspace{0.5cm}
+        \large
+        1. naloga pri Teoretični Astrofiziki
+
+        \vspace{4.5cm}
+        
+        \textbf{Avtor:} Marko Urbanč (28191096)\ \\
+        \textbf{Predavatelj:} prof. dr. Dunja Fabjan\ \\
+        
+        \vspace{2.8cm}
+        
+        \large
+        26.12.2021
+    \end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Uvod}
+\emph{Lane-Emdenova enačba} (\ref{eq:le}) je v astrofiziki brezdimenzijska oblika Poissonove enačbe (\ref{eq:poisson}) za  lastni gravitacijski potencial sferično \textbf{simetrične} in \textbf{politropne} kapljevine. Za politropno kapljevino velja preprosta enačba stanja $p = K\rho^{\frac{n+1}{n}}$, kjer je $n$ \textbf{politropni indeks}. Lane-Emdenova enačba se tako glasi:
+\begin{equation}
+    \frac{1}{\xi^2} \frac{\ddd}{\ddd\xi}\left(\xi^2 \frac{\ddd\theta}{\ddd\xi}\right) + \theta^n = 0
+    \label{eq:le}
+\end{equation}
+kjer je $\xi$ brezdimenzijski radij in je $\theta$ povezan z gostoto in (zaradi politropnosti) tlakom preko zveze $\rho(r) = \rho_c \theta^n(r)$. Radij lahko pretvorimo v brezdimenzijski radij preko zveze $r = \alpha\xi$, kjer je:
+\begin{gather*}
+    \alpha = \left[(n+1) \frac{K\rho_c^{\frac{1-n}{n}}}{4\pi G} \right]^{1/2}\>
+\end{gather*}
+in je $K$ proporcionalnostna konstanta.
+V tem zapisu lahko pravzaprav prepoznamo Laplaceov operator v sferičnih koordinatah, kjer ni kotne odvisnosti zaradi sferične simetrije. Tako se enačba lahko posplošeno zapiše kot:
+\begin{equation}
+    \Delta\theta + \theta^n = 0\>,
+    \label{eq:poisson}
+\end{equation}
+kjer $\Delta$ označuje Laplaceov operator. Takim zvezdnim modelom pravimo \emph{politropni} modeli.
+\section{Analitična rešitev za $n=5$}
+V splošnem enačb zvezdne strukture ne uspemo rešiti analitično. V našem primeru pa, ker velja preprosta enačba stanja, lahko Lane-Emdenovo enačbo rešimo analitično za politropne indekse $n = 0, 1, 5$. Ustrezni robni pogoji za reševanje so $\theta(0)=1$ in $\theta'(0)=0$.\\
+Pri predavanjih smo enačbo že rešili za indeksa $n=0,1$. Naloga od nas zahteva, da preverimo, če je rešitev za indeks $n=5$ res:
+\begin{equation}
+    \theta = \frac{1}{\sqrt{1 + \frac{1}{3}\xi^2}}\>.
+    \label{eq:sol}
+\end{equation}
+To preverimo preprosto tako, da rešitev vstavimo v enačbo in preverimo, če se enačba res izide. Sicer pa tudi izpeljava te rešitve ni nekaj pretirano zahtevna. Zgledne izpeljave se najdejo na internetu \cite{wiki:le}. V primeru $n=5$ se enačba torej glasi:
+\begin{equation}
+    \frac{1}{\xi^2} \frac{\ddd}{\ddd\xi}\left(\xi^2 \frac{\ddd\theta}{\ddd\xi}\right) + \theta^5 = 0
+    \label{eq:le5}
+\end{equation}
+\newpage
+Najprej se lotimo tako, da izračunamo odvod domnevne rešitve (\ref{eq:sol}):
+\begin{equation}
+    \frac{\ddd\theta}{\ddd\xi} = -\frac{1}{2}\left(1+\frac{1}{3}\xi ^2\right)^{-3/2} \cdot \frac{1}{3}2\xi = - \frac{\xi}{3\left(1+\frac{1}{3}\xi^2\right)^{3/2}}
+\end{equation}
+oz. pravzaprav potrebujemo:
+\begin{equation}
+    \xi^2 \frac{\ddd\theta}{\ddd\xi} = - \frac{\xi^3}{3\left(1+\frac{1}{3}\xi^2\right)^{3/2}}
+\end{equation}
+Tako lahko naredimo naslednji odvod:
+\begin{gather}
+    \frac{\ddd}{\ddd\xi}\left(\xi^2\frac{\ddd\theta}{\ddd\xi}\right) = - \frac{3\xi^2\cdot3\left(1+\frac{1}{3}\xi^2\right)^{3/2} - \xi^3\cdot3\frac{3}{2}\left(1+\frac{1}{3}\xi^2\right)^{1/2}\cdot \frac{1}{3}2\xi}{9\left(1 + \frac{1}{3}\xi^2\right)^3} =\\= -\frac{3\xi^2\left(1+\frac{1}{3}\xi^2\right)^{3/2} - \xi^4\left(1 + \frac{1}{3}\xi^2\right)^{1/2}}{3\left(1 + \frac{1}{3}\xi^2\right)^3}
+\end{gather}
+Tako imamo vse sestavne dele:
+\begin{gather}
+    \frac{1}{\xi^2} \frac{\ddd}{\ddd\xi}\left(\xi^2 \frac{\ddd\theta}{\ddd\xi}\right) + \theta^5 = -\frac{3\left(1+\frac{1}{3}\xi^2\right)^{3/2} - \xi^2\left(1 + \frac{1}{3}\xi^2\right)^{1/2}}{3\left(1 + \frac{1}{3}\xi^2\right)^3} + \theta^5= \\ =
+    \frac{3\left(1 + \frac{1}{3}\xi^2\right)^3\left[\xi^2\left(1+\frac{1}{3}\xi^2\right)^{-5/2} - 3\left(1+\frac{1}{3}\xi^2\right)^{-3/2}\right]}{3\left(1 + \frac{1}{3}\xi^2\right)^3} + \theta^5= \\ =
+    \frac{1}{3}\xi^2\left(1 + \frac{1}{3}\xi^2\right)^{-5/2} - \left(1+\frac{1}{3}\xi^2\right)^{-3/2} + \theta^5 = \\ =
+    \left(1 + \frac{1}{3}\xi^2\right)^{-5/2}\left(\frac{1}{3}\xi^2 - \left(1 + \frac{1}{3}\xi^2\right)\right) + \theta^5 = -\left(1 + \frac{1}{3}\xi^2\right)^{-5/2} + \theta^5
+\end{gather}
+Iz česar pa res sledi domnevna rešitev (\ref{eq:sol}).
+
+\section{Numerično reševanje}
+Kot rečeno se tovrstne enačbe v splošnem rešujejo numerično. Za namen numeričnega računanja prevedemo diferencialno enačbo drugega reda na sistem diferecialnih enačb prvega reda. Našo enačbo lahko pravzaprav prepišemo v obliko:
+\begin{equation}
+    \Dd[2]{\theta}{\xi} = -\left[\theta^n + \frac{2}{\xi}\frac{\ddd\theta}{\ddd\xi}\right]
+\end{equation}
+Z uvedbo nove spremenljivke $\varphi$ enostavno prevedemo diferencialno enačbo v sistem. Tako dobimo:
+\begin{gather}
+    \frac{\ddd\theta}{\ddd\xi} = \varphi\\
+    \frac{\ddd\varphi}{\ddd\xi} = -\left[\theta^n + \frac{2}{\xi}\varphi\right]
+\end{gather}
+\newpage
+Numeričnega problema sem se lotil v Pythonu, kjer sem si pomagal z knjižnicami \texttt{NumPy} in \texttt{matplotlib}. Prvi poskrbi za vso delo z podatki in preprostejšimi operacijami z njimi. Drugi pa je prisoten za risanje grafov. Pri numeričnem reševanje sistema diferencialnih enačb sem zaradi stabilnosti in robustnosti raje uporabil vgrajeno funkcijo\\ \texttt{scipy.integrate.odeint()}, kot da bi uporabljal lastno implementirane integratorje.\\
+
+Kar se tiče iskanja ničel sem jih raje odbral od grafa, kot da bi jih iskal z npr. Newton-Raphsonovo metodo. To je zato, ker se rešitve z polcelim politropnim indeksom približajo abscisni osi, ampak je zaradi končne numerične natančnosti ne dosežejo zares. Namesto da bi se mučil z interpolacijo in posledično iskanjem ničel numerično sem raje pomanjšal delitev integracijskega intervala, kar služi v namen večanja natančnosti. Tako sem uporabljal mrežo $50000000$ točk (ki je porabilo tudi vseh $16$ GB spomina, ki ga imam) in čim bolj natančno odbral ničle vseh funkcij.  Rešitev za $n=5$ se asimptotsko približuje abscisni osi zato nje prve ničle ni možno določiti. To je zato ker $n=5$ predstavlja neskončno zvezdo.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{zeros_1_10mil.png}
+    \caption{Prikaz iskanja ničel}
+    \label{fig:graph1}
+\end{figure}
+Ker rešujemo sistem diferencialnih enačb vrednosti odvoda pravzaprav dobimo ``zastonj``. Integrator nam vrne pravzaprav dva vektorja, kjer so v prvem vrednosti funkcije v podanih točkah, v drugem pa njihovi odvodi. Tako sem zopet pri čim višji numerični natančnosti prebral vrednosti odvoda pri $\xi_1$ za vsako rešitev.\\
+
+Za izračun $M_n$ pa obstaja preprosta zveza $M_n = -\xi_1^2 \left(\frac{\ddd\theta}{\ddd\xi}\right)\vert_{\xi_1}$. To formulo sem implementiral v Excelu.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{C0C0C0}\textbf{n}} &
+  \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{$\xi_1$}} &
+  \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{$\left(\frac{\ddd\theta}{\ddd\xi}\right)\vert_{\xi_1}$}} &
+  \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}\textbf{$M_n$}} \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+{\color[HTML]{333333} 0.0} & 2.45 & -0.82 & 4.92 \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+{\color[HTML]{333333} 0.1} & 2.50 & -0.73 & 4.56 \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+{\color[HTML]{333333} 0.5} & 2.75 & -0.50 & 3.78 \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+{\color[HTML]{333333} 1.0} & 3.14 & -0.32 & 3.16 \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+{\color[HTML]{333333} 1.5} & 3.64 & -0.20 & 2.65 \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+3.0                        & 6.89 & -0.04 & 1.9  \\ \hline
+\rowcolor[HTML]{FFFFFF} 
+5.0                        & /    & /     & /    \\ \hline
+\end{tabular}
+\caption{Prve ničle, vrednosti odvodov in $M_n$.}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{solutions_plot.png}
+    \caption{Graf rešitev za željene indekse}
+    \label{fig:graph2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{derivative_plot.png}
+    \caption{Graf odvodov rešitev za željene indekse}
+    \label{fig:graph3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{solutions_cont.png}
+    \caption{Za estetiko sem narisal še zvezen prikaz rešitev za različne vrednosti $n$}
+    \label{fig:graph4}
+\end{figure}
+\newpage
+\section{Model zvezde}
+Za modela $n = 1.5$ (ki opisuje enoatomni plin) in $n = 3$ (ki opisuje degeneriran relativističen plin) naloga od nas zahteva, da narišemo grafe za gostoto, maso, tlak in temperaturo v odvisnosti od radija.
+Tudi to sem implementiral v Pythonu. Dodal sem še podatke za standardni solarni model, ki sem jih tudi ustrezno normiral.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{rho_plot.png}
+    \caption{``Normiran`` graf gostote v odvisnosti od radija}
+    \label{fig:graph5}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{m_plot.png}
+    \caption{``Normiran`` graf mase v odvisnosti od radija}
+    \label{fig:graph6}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{p_plot.png}
+    \caption{``Normiran`` graf tlaka v odvisnosti od radija}
+    \label{fig:graph7}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{T_plot.png}
+    \caption{``Normiran`` graf temperature v odvisnosti od radija}
+    \label{fig:graph8}
+\end{figure}
+\section{Primerjava z standardnim solarnim modelom}
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{sources}
+\end{document}

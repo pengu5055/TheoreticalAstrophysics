@@ -171,7 +171,7 @@ rho2 = density_norm(theta2, 3)
 
 plt.plot(r, rho, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, rho2, c=c2, label=r"$n = 3$")
-plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
+# plt.plot(r_solar, rho_solar, c=c3, label="Standard solar")
 
 plt.title("Gostota")
 plt.xlabel(r"$r/R$")
@@ -185,7 +185,7 @@ x2, m2 = mass_norm(theta2, xi_range2, 3, xi1_2)
 
 plt.plot(xi_to_r(x, xi1), m, c=c1, label=r"$n = 1.5$")
 plt.plot(xi_to_r(x2, xi1_2), m2, c=c2, label=r"$n = 3$")
-plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
+# plt.plot(r_solar, m_solar, c=c3, label="Standard solar")
 
 
 plt.title("Masa")
@@ -200,7 +200,7 @@ p2 = pressure_norm(theta2, 3)
 
 plt.plot(r, p, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, p2, c=c2, label=r"$n = 3$")
-plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
+# plt.plot(r_solar, p_solar, c=c3, label="Standard solar")
 
 
 plt.title("Tlak")
@@ -215,7 +215,7 @@ T2 = temperature_norm(theta2, 3)
 
 plt.plot(r, T, c=c1, label=r"$n = 1.5$")
 plt.plot(r2, T2, c=c2, label=r"$n = 3$")
-plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
+# plt.plot(r_solar, T_solar, c=c3, label="Standard solar")
 
 
 plt.title("Temperatura")
